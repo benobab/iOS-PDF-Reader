@@ -32,7 +32,7 @@ public struct PDFDocument {
     /// - parameter password: password for the locked pdf
     ///
     /// - returns: A newly initialized `PDFDocument`.
-    public init?(fileURL: URL, password: String? = nil) {
+    public init?(fileURL: URL, password: String? = nil, noCache: Bool = false) {
         self.fileURL = fileURL
         self.fileName = fileURL.lastPathComponent
         
@@ -55,7 +55,9 @@ public struct PDFDocument {
         
         self.coreDocument = coreDocument
         self.pageCount = coreDocument.numberOfPages
-        self.loadPages()
+        if(!noCache){
+            self.loadPages()
+        }
     }
     
     /// Extracts image representations of each page and stores them in the cache
